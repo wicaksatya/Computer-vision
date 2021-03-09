@@ -2,22 +2,23 @@ import cv2
 import numpy as np
 import imutils
 
-img = cv2.imread('D:\\circles.jpg',0)
-img = cv2.medianBlur(img,9)
+img = cv2.imread('D:/KP/C003/49C1Y07BA7/0001B.TIFF',0)
+kernel = np.ones((8,8),np.uint8)
 if img.shape[1] > 600:
     img = imutils.resize(img, width=400)
 cimg = cv2.cvtColor(img,cv2.COLOR_GRAY2BGR)
-edge_detected_image = cv2.Canny(cimg, 100, 200)
-
-circles = cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,1,20,
+ret,thresh = cv2.threshold(cimg,13,255,cv2.THRESH_BINARY_INV)
+filter = cv2.blur(thresh,(3,3))
+opening= cv2.morphologyEx(filter, cv2.MORPH_OPEN, kernel)
+edge_detected_image = cv2.Canny(opening, 100, 200)
+circles = cv2.HoughCircles(edge_detected_image,cv2.HOUGH_GRADIENT,1,20,
                             param1=50,param2=30,minRadius=0,maxRadius=0)
 
 circles = np.uint16(np.around(circles))
 for i in circles[0,:]:
     # draw the outer circle
-    cv2.circle(cimg,(i[0],i[1]),i[2],(0,255,0),2)
+    cv2.circle(opening,(i[0],i[1]),i[2],(0,255,0),2)
     # draw the center of the circle
-    cv2.circle(cimg,(i[0],i[1]),2,(0,0,255),3)
-
-cv2.imshow('detected circles',cimg)
+    cv2.circle(opening,(i[0],i[1]),2,(0,0,255),2)
+cv2.imshow('Result',opening)
 cv2.waitKey(0)
