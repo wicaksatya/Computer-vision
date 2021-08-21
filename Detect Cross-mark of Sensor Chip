@@ -1,0 +1,38 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import cv2
+from skimage.feature import match_template
+from skimage.feature import peak_local_max # new import!
+
+#Input an image
+img = cv2.imread('D:/KP/C003/49C1Y07BA7/0001A.TIFF', 0)
+
+#Resize image
+scale_percent = 20 # percent of original size
+width = int(img.shape[1] * scale_percent / 100)
+height = int(img.shape[0] * scale_percent / 100)
+dim = (width, height)
+resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+
+#Change colorspaces and apply the segmentation
+cimg = cv2.cvtColor(resized,cv2.COLOR_GRAY2BGR)
+ret,thresh0 = cv2.threshold(cimg,230,255,cv2.THRESH_BINARY)
+thresh=thresh0[:,:,0]
+print(thresh.shape)
+crossmark = thresh[287:328,137:178]
+print (crossmark)
+
+#Match template
+result = match_template(thresh, crossmark, pad_input=True) #added the pad_input bool
+print(result.shape)
+peaks = peak_local_max(result,min_distance=1,threshold_rel=0.8) # find our peaks
+print(peaks)
+
+#Produce a plot equivalent to the one in the docs
+plt.imshow(result, cmap = plt.get_cmap('binary_r'))
+plt.show()
+
+#Highlight matched regions (plural)
+plt.plot(peaks[:,1], peaks[:,0], 'o', markeredgecolor='r', markerfacecolor='none', markersize=1)
+
+cv2.waitKey(0)
