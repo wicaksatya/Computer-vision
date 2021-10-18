@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 #Input an image
-img = cv2.imread('D:/KP/C003/49C1Y07BB3/0001B.TIFF',0)
+img = cv2.imread('D:/KP/C003/49C1Y07BB3/0001B.TIFF', cv2.IMREAD_COLOR)
 
 #Resize image
 scale_percent = 20 # percent of original size
@@ -12,7 +12,7 @@ dim = (width, height)
 resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
 
 #Change colorspaces and apply the segmentation
-cimg = cv2.cvtColor(resized,cv2.COLOR_GRAY2BGR)
+cimg = cv2.cvtColor(resized,cv2.COLOR_BGR2GRAY)
 ret,thresh = cv2.threshold(cimg,20,255,cv2.THRESH_BINARY_INV)
 
 #Give averaging filter to image
