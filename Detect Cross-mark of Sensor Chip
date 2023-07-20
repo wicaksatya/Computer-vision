@@ -19,11 +19,16 @@ cimg = cv2.cvtColor(resized,cv2.COLOR_BGR2GRAY)
 ret,thresh = cv2.threshold(cimg,225,255,cv2.THRESH_BINARY)78]
 
 #Match template
-crossmark = thresh[288:330,246:288]
-print(crossmark)
+crossmark = np.ones((41,41), dtype=float)
+crossmark = 255*crossmark
+
+for i in crossmark:
+    crossmark[:,18:25]=0
+    for j in crossmark:
+        crossmark[18:26,:]=0 
+
 result = match_template(thresh, crossmark, pad_input=True) #added the pad_input bool
 peaks = peak_local_max(result,min_distance=1,threshold_rel=0.8) # find our peaks
-print(peaks)
 
 #Produce a plot equivalent to the one in the docs
 plt.imshow(result, cmap = plt.get_cmap('binary_r'))
