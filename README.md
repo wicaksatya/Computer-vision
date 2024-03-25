@@ -1,17 +1,18 @@
 # Circle and Cross Marker Detection with OpenCV
 This repository implements algorithms for detecting circle and cross markers in images using OpenCV.
 
-Techniques Used
+## Techniques Used
 Canny Edge Detection: This algorithm identifies strong edges within the image, useful for finding the boundaries of the markers.
 Hough Transform (Circle): This technique identifies circles in the image based on the edge points detected by Canny edge detection.
 Template Matching (Cross): A pre-defined template image of the cross marker is used to locate its position within the main image.
-Getting Started
+
+## Getting Started
 Clone this repository:
-Bash
+`Bash
 git clone https://<your_github_username>/<repository_name>.git
 Use code with caution.
 Install dependencies:
-This project requires OpenCV to be installed. You can follow the installation instructions from the official OpenCV website: https://opencv.org/
+This project requires OpenCV to be installed. You can follow the installation instructions from the official OpenCV website: https://opencv.org/`
 
 Run the script:
 The script for marker detection is likely named marker_detection.py or similar. Execute it using:
