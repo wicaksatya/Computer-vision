@@ -9,26 +9,26 @@ Template Matching (Cross): A pre-defined template image of the cross marker is u
 ## Getting Started
 Clone this repository:
 `Bash
-git clone https://<your_github_username>/<repository_name>.git
-Use code with caution.
-Install dependencies:
-This project requires OpenCV to be installed. You can follow the installation instructions from the official OpenCV website: https://opencv.org/`
+git clone https:wicaksatya/sensor-chip-detection.git`
 
-Run the script:
-The script for marker detection is likely named marker_detection.py or similar. Execute it using:
-
-Bash
-python marker_detection.py <image_path>
-Use code with caution.
-Replace <image_path> with the actual path to your image file containing the markers.
+## Usage
+1. Circle Marker Detection:
+- Run the circle_detection.py script.
+- Provide an input image containing circular markers.
+- The script will apply the Hough transform and display the detected circles.
+2. Cross Marker Detection:
+- Run the cross_detection.py script.
+- Input an image with cross-shaped markers.
+- The script will perform template matching to locate the crosses.
 
 Expected Output
-The script will display the original image with detected circles and bounding boxes around identified cross markers.
+1. The script will display the original image with detected circles and bounding boxes around identified cross markers.
+2. The center point of circle and cross marker will also be displayed.
 
-Additional Notes
-This is a basic implementation and might require adjustments depending on the complexity of your markers and image conditions.
-You can modify the script to include functionalities like filtering detected circles based on size or refining cross marker template matching for better accuracy.
-Further Exploration
+## Additional Notes
+- This is a basic implementation and might require adjustments depending on the complexity of your markers and image conditions.
+- You can modify the script to include functionalities like filtering detected circles based on size or refining cross marker template matching for better accuracy.
 
-Explore different parameters for Canny edge detection and Hough transform to optimize circle detection for your specific use case.
-Consider using machine learning techniques for more robust cross marker detection, especially if the marker design has variations.
+## Further Exploration
+- Explore different parameters for Canny edge detection and Hough transform to optimize circle detection for your specific use case.
+- Consider using machine learning techniques for more robust cross marker detection, especially if the marker design has variations.
