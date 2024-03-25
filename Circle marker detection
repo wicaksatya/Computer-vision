@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import time
 
-class MarkerDetector:
+class CircleDetect:
     def __init__(self, image_path):
         self.image_path = image_path
 
@@ -53,5 +53,5 @@ class MarkerDetector:
 
 if __name__ == "__main__":
     image_path = 'D:/KP/C003/49C1Y07BB3/0001A.TIFF'
-    marker_detector = MarkerDetector(image_path)
+    marker_detector = CircleDetect(image_path)
     marker_detector.process_image()
