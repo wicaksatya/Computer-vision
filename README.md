@@ -22,7 +22,7 @@ Clone this repository:
     - Adjust the threshold to fine-tune the cross detection.
     - The script will perform template matching to locate the crosses.
 
-Expected Output
+## Expected Output
 1. The script will display the original image with detected circles and bounding boxes around identified cross markers.
 2. The center point of circle and cross marker will also be displayed.
 
