@@ -1,4 +1,4 @@
-# Circle and Cross Marker Detection with OpenCV
+# Circle and Cross Marker Detection
 This repository implements algorithms for detecting circle and cross markers in images. Detecting markers (such as circles and crosses) in images is a common task in computer vision and image processing. These markers can serve as reference points, fiducials, or features for further analysis
 
 ## Techniques Used
