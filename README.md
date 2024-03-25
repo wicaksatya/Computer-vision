@@ -12,13 +12,13 @@ Clone this repository:
 
 ## Usage
 1. Circle Marker Detection:
-  - Run the circle_detection.py script.
-  - Provide an input image containing circular markers.
-  - The script will apply the Hough transform and display the detected circles.
+    - Run the circle_detection.py script.
+    - Provide an input image containing circular markers.
+    - The script will apply the Hough transform and display the detected circles.
 2. Cross Marker Detection:
-  - Run the cross_detection.py script.
-  - Input an image with cross-shaped markers.
-  - The script will perform template matching to locate the crosses.
+    - Run the cross_detection.py script.
+    - Input an image with cross-shaped markers.
+    - The script will perform template matching to locate the crosses.
 
 Expected Output
 1. The script will display the original image with detected circles and bounding boxes around identified cross markers.
