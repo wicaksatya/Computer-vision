@@ -1,24 +1,27 @@
 import cv2
 import numpy as np
+import time
 
-class CircleDetect:
+class MarkerDetector:
     def __init__(self, image_path):
         self.image_path = image_path
 
     def load_image(self):
         return cv2.imread(self.image_path, cv2.IMREAD_COLOR)
 
-    def resize_image(self, scale_percent=20):
-        img = self.load_image()
+    def resize_image(self, img, scale_percent=20):
         width = int(img.shape[1] * scale_percent / 100)
         height = int(img.shape[0] * scale_percent / 100)
         dim = (width, height)
         return cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
 
     def preprocess_image(self, img):
-        cimg = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-        ret, thresh = cv2.threshold(cimg, 15, 255, cv2.THRESH_BINARY_INV)
-        return cv2.blur(thresh, (3, 3))
+        gray_img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+        _, thresh = cv2.threshold(gray_img, 15, 255, cv2.THRESH_BINARY_INV)
+        blur = cv2.blur(thresh, (3, 3))
+        kernel = np.ones((8, 8), np.uint8)
+        opening = cv2.morphologyEx(blur, cv2.MORPH_OPEN, kernel)
+        return opening
 
     def detect_circles(self, img):
         edge_detected_image = cv2.Canny(img, 100, 200)
@@ -36,12 +39,17 @@ class CircleDetect:
         return img
 
     def process_image(self):
-        resized_img = self.resize_image()
+        start_time = time.time()
+        original_img = self.load_image()
+        resized_img = self.resize_image(original_img)
         preprocessed_img = self.preprocess_image(resized_img)
         detected_circles = self.detect_circles(preprocessed_img)
-        result_img = self.visualize_markers(preprocessed_img, detected_circles)
+        result_img = self.visualize_markers(resized_img, detected_circles)
         cv2.imshow('Result', result_img)
         cv2.waitKey(0)
+        end_time = time.time()
+        print(f"Number of circles detected: {len(detected_circles[0, :])}")
+        print(f"Processing time: {end_time - start_time:.2f} seconds")
 
 if __name__ == "__main__":
     image_path = 'D:/KP/C003/49C1Y07BB3/0001A.TIFF'
