@@ -1,4 +1,4 @@
-Circle and Cross Marker Detection with OpenCV
+#Circle and Cross Marker Detection with OpenCV
 This repository implements algorithms for detecting circle and cross markers in images using OpenCV.
 
 Techniques Used
