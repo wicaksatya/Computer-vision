@@ -2,39 +2,50 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 from skimage.feature import match_template
-from skimage.feature import peak_local_max # new import!
+from skimage.feature import peak_local_max
+import time
 
-#Input an image
-img = cv2.imread('D:/KP/C003/49C1Y07BA7/0001A.TIFF', cv2.IMREAD_COLOR)
+class CrossDetect:
+    def __init__(self, image_path):
+        self.image_path = image_path
 
-#Resize image
-scale_percent = 20 # percent of original size
-width = int(img.shape[1] * scale_percent / 100)
-height = int(img.shape[0] * scale_percent / 100)
-dim = (width, height)
-resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+    def load_image(self):
+        img = cv2.imread(self.image_path, cv2.IMREAD_COLOR)
+        return img
 
-#Change colorspaces and apply the segmentation
-cimg = cv2.cvtColor(resized,cv2.COLOR_BGR2GRAY)
-ret,thresh = cv2.threshold(cimg,225,255,cv2.THRESH_BINARY)78]
+    def preprocess_image(self, img):
+        scale_percent = 20
+        width = int(img.shape[1] * scale_percent / 100)
+        height = int(img.shape[0] * scale_percent / 100)
+        dim = (width, height)
+        resized = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
+        cimg = cv2.cvtColor(resized, cv2.COLOR_BGR2GRAY)
+        ret, thresh = cv2.threshold(cimg, 235, 255, cv2.THRESH_BINARY)
+        return thresh
 
-#Match template
-crossmark = np.ones((41,41), dtype=float)
-crossmark = 255*crossmark
+    def detect_crossmark(self, image):
+        crossmark = np.ones((41, 41), dtype=float) * 255
+        crossmark[:, 18:25] = 0
+        crossmark[18:26, :] = 0
+        result = match_template(image, crossmark, pad_input=True)
+        peaks = peak_local_max(result, min_distance=1, threshold_rel=0.9)
+        return result, peaks
 
-for i in crossmark:
-    crossmark[:,18:25]=0
-    for j in crossmark:
-        crossmark[18:26,:]=0 
+if __name__ == "__main__":
+    image_path = 'D:/KP/E106/51PK407BA3/0001B.TIFF'
+    crossmark_detector = CrossDetect(image_path)
 
-result = match_template(thresh, crossmark, pad_input=True) #added the pad_input bool
-peaks = peak_local_max(result,min_distance=1,threshold_rel=0.8) # find our peaks
+    start = time.time()
+    img = crossmark_detector.load_image()
+    thresh = crossmark_detector.preprocess_image(img)
+    result, peaks = crossmark_detector.detect_crossmark(thresh)
+    end = time.time()
 
-#Produce a plot equivalent to the one in the docs
-plt.imshow(result, cmap = plt.get_cmap('binary_r'))
-plt.show()
+    plt.imshow(result, cmap=plt.get_cmap('binary_r'))
+    plt.show()
 
-#Highlight matched regions (plural)
-plt.plot(peaks[:,1], peaks[:,0], 'o', markeredgecolor='r', markerfacecolor='none', markersize=1)
+    plt.plot(peaks[:, 1], peaks[:, 0], 'o', markeredgecolor='r', markerfacecolor='none', markersize=1)
 
-cv2.waitKey(0)
+    print(f"Center of cross marker: {peaks}")
+    print(f"Processing time: {end - start:.2f} seconds")
+    cv2.waitKey(0)
