@@ -2,9 +2,9 @@
 This repository implements algorithms for detecting circle and cross markers in images using OpenCV.
 
 ## Techniques Used
-Canny Edge Detection: This algorithm identifies strong edges within the image, useful for finding the boundaries of the markers.
-Hough Transform (Circle): This technique identifies circles in the image based on the edge points detected by Canny edge detection.
-Template Matching (Cross): A pre-defined template image of the cross marker is used to locate its position within the main image.
+-Canny Edge Detection: This algorithm identifies strong edges within the image, useful for finding the boundaries of the markers.
+-Circle Hough Transform: This technique identifies circles in the image based on the edge points detected by Canny edge detection.
+-Template Matching: A pre-defined template image of the cross marker is used to locate its position within the main image.
 
 ## Getting Started
 Clone this repository:
