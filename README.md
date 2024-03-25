@@ -8,8 +8,7 @@ Template Matching (Cross): A pre-defined template image of the cross marker is u
 
 ## Getting Started
 Clone this repository:
-`Bash
-git clone https:wicaksatya/sensor-chip-detection.git`
+`git clone https://github.com/wicaksatya/sensor-chip-detection.git`
 
 ## Usage
 1. Circle Marker Detection:
