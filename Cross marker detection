@@ -32,7 +32,7 @@ class CrossDetect:
         return result, peaks
 
 if __name__ == "__main__":
-    image_path = 'D:/KP/E106/51PK407BA3/0001B.TIFF'
+    image_path = 'file_path'
     crossmark_detector = CrossDetect(image_path)
 
     start = time.time()
