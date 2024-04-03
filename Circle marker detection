@@ -52,6 +52,6 @@ class CircleDetect:
         print(f"Processing time: {end_time - start_time:.2f} seconds")
 
 if __name__ == "__main__":
-    image_path = 'D:/KP/C003/49C1Y07BB3/0001A.TIFF'
+    image_path = 'file path'
     marker_detector = CircleDetect(image_path)
     marker_detector.process_image()
